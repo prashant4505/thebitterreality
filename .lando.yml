@@ -1,0 +1,10 @@
+name: thebitterreality
+recipe: laravel
+config:
+  webroot: public
+services:
+  phpmyadmin:
+    type: phpmyadmin
+    hosts:
+      - database
+    portforward: true

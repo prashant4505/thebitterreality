@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Ensure the public folder is the entry point
+    RewriteCond %{REQUEST_URI} !^/public/
+
+    # Redirect everything to index.php in the public directory
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+
+    # Force trailing slashes on directories
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !(.*)/$
+    RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+    # Handle index.php requests
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+
+    # Deny access to .env and other sensitive files
+    <FilesMatch "^.*\.([Hh]taccess|env|ini|log|bak|swp)$">
+        Order Deny,Allow
+        Deny from all
+    </FilesMatch>
+</IfModule>
