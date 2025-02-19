@@ -35,10 +35,14 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('posts.create') }}">Create Jokes</a>
                     </li>
+                @endauth
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ route('blogs.index') }}">Blogs</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('contact.show') }}">Contact Us</a>
                     </li>
-
+                @auth
                     <li class="nav-item">
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
@@ -46,6 +50,7 @@
                         </form>
                     </li>
                 @endauth
+
             </ul>
         </div>
     </div>

@@ -28,6 +28,7 @@
                         </a>
                     </h5>
                         <p class="card-text">{!! Str::limit($blog->description, 250) !!}</p>
+                        @auth
                         <div class="d-inline-block">
                             <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this blog?');">
@@ -36,6 +37,7 @@
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </div>
+                        @endauth
                     </div>
                 </div>
             </div>
