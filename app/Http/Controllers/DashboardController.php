@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\ContactMessage;
 
 class DashboardController extends Controller
 {
@@ -13,6 +14,7 @@ class DashboardController extends Controller
         $userCount = User::count(); // Get the total user count
         $blogCount = Blog::count();
         $jokesCount = Post::count();
-        return view('dashboard', compact('userCount', 'blogCount', 'jokesCount')); // Pass the user count to the view
+        $contactMessage = ContactMessage::count();
+        return view('dashboard', compact('userCount', 'blogCount', 'jokesCount', 'contactMessage')); // Pass the user count to the view
     }
 }

@@ -3,6 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="row">
     <!-- Card for Total Users -->
     <div class="col-md-4 mb-4">
@@ -10,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">Total Users</h5>
                 <p class="card-text">{{ $userCount }}</p> <!-- Dummy data for Total Users -->
-                <a href="#" class="btn btn-primary btn-sm disabled">Show Users</a>
+                <a href="{{ route('users.index') }}" class="btn btn-primary btn-sm">Show Users</a>
             </div>
         </div>
     </div>
@@ -36,7 +41,20 @@
             </div>
         </div>
     </div>
+
+    <!-- Card for Total Contact Us -->
+    <div class="col-md-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Contact Us</h5>
+                <p class="card-text">{{ $contactMessage }}</p> <!-- Dummy data for Total Blogs -->
+                <a href="{{ route('contact.index') }}" class="btn btn-info btn-sm">Show Contact Us</a>
+
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <!-- <div class="container">
     <a href="{{ route('blogs.create') }}" class="btn btn-primary btn-sm mb-5">Create Blogs</a>
