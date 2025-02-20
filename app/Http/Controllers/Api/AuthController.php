@@ -51,4 +51,16 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Logged out successfully']);
     }
+
+    public function validateToken(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            return response()->json(['valid' => true, 'user' => $user], 200);
+        } else {
+            return response()->json(['valid' => false], 401);
+        }
+    }
+
 }

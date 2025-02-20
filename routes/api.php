@@ -33,3 +33,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 });
+
+Route::middleware('auth:sanctum')->get('/validate-token', [AuthController::class, 'validateToken']);
