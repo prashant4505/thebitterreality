@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/blogs', [BlogController::class, 'store']);
 
 Route::middleware('auth:sanctum')->post('/blogs', [BlogController::class, 'store']);
-Route::middleware('auth:sanctum')->get('/blogs', [BlogController::class, 'index']);
+Route::get('/blogs', [BlogController::class, 'index']);
 
 
 Route::post('/login', [AuthController::class, 'login']);
