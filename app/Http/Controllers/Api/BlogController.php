@@ -41,4 +41,11 @@ class BlogController extends Controller
             'blog' => $blog
         ], 201);
     }
+
+    public function index()
+    {
+        $blogs = Blog::all();
+        return response()->json($blogs);
+    }
+
 }

@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::post('/blogs', [BlogController::class, 'store']);
 
 Route::middleware('auth:sanctum')->post('/blogs', [BlogController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/blogs', [BlogController::class, 'index']);
 
 
 Route::post('/login', [AuthController::class, 'login']);
@@ -33,5 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 });
+
 
 Route::middleware('auth:sanctum')->get('/validate-token', [AuthController::class, 'validateToken']);
