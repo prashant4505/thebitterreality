@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,8 @@ Route::middleware('auth:sanctum')->get('/dashboard', [DashboardController::class
 Route::middleware('auth:sanctum')->post('/blogs', [BlogController::class, 'store']);
 Route::get('/blogs', [BlogController::class, 'index']);
 Route::get('/blogs/{id}', [BlogController::class, 'show']);
+Route::middleware('auth:sanctum')->put('/blogs/{id}', [BlogController::class, 'update']); // Update blog
+Route::middleware('auth:sanctum')->delete('/blogs/{id}', [BlogController::class, 'destroy']); // Delete blog
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -37,3 +41,14 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->get('/validate-token', [AuthController::class, 'validateToken']);
+
+Route::middleware('auth:sanctum')->get('/users', [UserController::class, 'index']); // Get all users
+Route::middleware('auth:sanctum')->get('/users/{id}', [UserController::class, 'show']); // Get single user
+Route::middleware('auth:sanctum')->post('/users', [UserController::class, 'store']); // Create user
+Route::middleware('auth:sanctum')->put('/users/{id}', [UserController::class, 'update']); // Update user with role
+Route::middleware('auth:sanctum')->delete('/users/{id}', [UserController::class, 'destroy']); // Delete user
+
+Route::post('/contact', [ContactController::class, 'store']); // Submit contact message
+Route::middleware('auth:sanctum')->get('/contact', [ContactController::class, 'index']); // Get all contact messages
+Route::middleware('auth:sanctum')->get('/contact/{id}', [ContactController::class, 'show']); // Get single message
+Route::middleware('auth:sanctum')->delete('/contact/{id}', [ContactController::class, 'destroy']); // Delete message

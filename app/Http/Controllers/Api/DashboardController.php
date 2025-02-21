@@ -7,7 +7,6 @@ use App\Models\Blog;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\ContactMessage;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
