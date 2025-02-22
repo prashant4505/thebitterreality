@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\UserController;
@@ -30,6 +31,8 @@ Route::get('/blogs', [BlogController::class, 'index']);
 Route::get('/blogs/{id}', [BlogController::class, 'show']);
 Route::middleware('auth:sanctum')->put('/blogs/{id}', [BlogController::class, 'update']); // Update blog
 Route::middleware('auth:sanctum')->delete('/blogs/{id}', [BlogController::class, 'destroy']); // Delete blog
+Route::get('/blogs/{id}/comments', [CommentController::class, 'index']); // Get comments
+Route::post('/blogs/{id}/comments', [CommentController::class, 'store']); // Post a comment
 
 Route::post('/login', [AuthController::class, 'login']);
 
