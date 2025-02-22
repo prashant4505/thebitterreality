@@ -15,16 +15,16 @@
         </div>
         <h3>Comments</h3>
         @foreach ($blog->comments as $comment)
-            <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+            <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; margin:10px; border-radius:6px;">
                 <p>{{ $comment->comment }}</p>
                 <small>- <strong>{{ $comment->name }}</strong>, {{ $comment->created_at->format('F j, Y') }}</small>
             </div>
         @endforeach
         <h3>Leave a Comment</h3>
-        <form action="{{ route('comments.store', $blog->id) }}" method="POST">
+        <form action="{{ route('comments.store', $blog->id) }}" method="POST" style="margin:10px;">
             @csrf
-            <textarea name="comment" placeholder="Write a comment..." required></textarea>
-            <button type="submit">Post Comment</button>
+            <textarea name="comment" class="form-control" placeholder="Write a comment..." required></textarea>
+            <button type="submit" class="btn btn-primary btn-sm mt-1">Post Comment</button>
         </form>
     </div>
 </div>
