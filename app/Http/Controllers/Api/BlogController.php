@@ -73,7 +73,7 @@ class BlogController extends Controller
                 'title' => $blog->title,
                 'description' => $blog->description,
                 'image' => $blog->image,
-                'published_at' => $blog->published_at,
+                'created_at' => $blog->created_at,
                 'user_name' => $blog->user ? $blog->user->name : 'Unknown' // Fetching user's name
             ]
         ], 200);
