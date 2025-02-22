@@ -60,17 +60,25 @@ class BlogController extends Controller
     // Fetch a single blog post by ID
     public function show($id)
     {
-        $blog = Blog::find($id);
-
+        $blog = Blog::with('user:id,name')->find($id);
+        
         if (!$blog) {
             return response()->json(['message' => 'Blog not found'], 404);
         }
 
         return response()->json([
             'message' => 'Blog fetched successfully',
-            'blog' => $blog
+            'blog' => [
+                'id' => $blog->id,
+                'title' => $blog->title,
+                'description' => $blog->description,
+                'image' => $blog->image,
+                'published_at' => $blog->published_at,
+                'user_name' => $blog->user ? $blog->user->name : 'Unknown' // Fetching user's name
+            ]
         ], 200);
     }
+
 
     // Update an existing blog post
     public function update(Request $request, $id)
