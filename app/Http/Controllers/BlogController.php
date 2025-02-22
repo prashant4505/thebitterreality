@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -34,6 +35,7 @@ class BlogController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'image' => $imagePath,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully!');
