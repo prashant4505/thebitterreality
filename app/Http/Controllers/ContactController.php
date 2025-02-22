@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -36,5 +37,19 @@ class ContactController extends Controller
         $message = ContactMessage::findOrFail($id);
         return view('contact.show', compact('message'));
     }
+
+    public function destroy($id)
+    {
+        $message = ContactMessage::findOrFail($id);
+        
+        // Ensure only the owner or an admin can delete
+        if (Auth::check()) {
+            $message->delete();
+            return back()->with('success', 'Contact Us message deleted successfully.');
+        }
+        
+        return back()->with('error', 'You are not authorized to delete this contact.');
+    }
+
 }
 

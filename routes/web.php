@@ -60,3 +60,6 @@ Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.sh
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 Route::get('/contact/messages', [ContactController::class, 'index'])->name('contact.index')->middleware('auth');
 Route::get('/contact/messages/{id}', [ContactController::class, 'show'])->name('contact.showDetails')->middleware('auth');
+Route::delete('/contact/messages/{id}', [ContactController::class, 'destroy'])
+    ->name('contact.destroy')
+    ->middleware('auth');
