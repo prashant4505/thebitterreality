@@ -60,10 +60,10 @@ Route::middleware('auth:sanctum')->delete('/contact/{id}', [ContactController::c
 
 Route::prefix('jokes')->group(function () {
     Route::get('/', [PostController::class, 'index']); // Get all posts
+    Route::get('{id}', [PostController::class, 'show']); // Get a single post
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [PostController::class, 'store']); // Create a post
-        Route::get('{id}', [PostController::class, 'show']); // Get a single post
         Route::put('{id}', [PostController::class, 'update']); // Update a post
         Route::delete('{id}', [PostController::class, 'destroy']); // Delete a post
     });
