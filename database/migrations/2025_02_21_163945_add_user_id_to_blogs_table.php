@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::table('blogs', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Add user_id column
-        });
+        if (!Schema::hasColumn('blogs', 'user_id')) {
+            Schema::table('blogs', function (Blueprint $table) {
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            });
+        }
     }
 
     public function down()

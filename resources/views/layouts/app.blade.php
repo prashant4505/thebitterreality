@@ -35,6 +35,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('posts.create') }}">Create Jokes</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('deep-thoughts.create') }}" class="nav-link text-light">Create Though</a>
+                    </li>
                 @endauth
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ route('blogs.index') }}">Blogs</a>

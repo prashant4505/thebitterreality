@@ -53,6 +53,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Card for Total Thoughts -->
+    <div class="col-md-4 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Total Thoughts</h5>
+                <p class="card-text">{{ $totalThoughts }}</p> <!-- Dummy data for Total Blogs -->
+                <a href="{{ route('deep-thoughts.index') }}" class="btn btn-primary btn-sm">Show Thoughts</a>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 

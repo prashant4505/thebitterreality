@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\DeepThoughtApiController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -67,3 +68,6 @@ Route::prefix('jokes')->group(function () {
         Route::delete('{id}', [PostController::class, 'destroy']); // Delete a post
     });
 });
+
+// Deep thoughts fetch
+Route::get('/deep-thoughts', [DeepThoughtApiController::class, 'index']);

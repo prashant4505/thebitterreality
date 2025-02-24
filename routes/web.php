@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeepThoughtController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,14 @@ Route::get('/contact/messages/{id}', [ContactController::class, 'show'])->name('
 Route::delete('/contact/messages/{id}', [ContactController::class, 'destroy'])
     ->name('contact.destroy')
     ->middleware('auth');
+
+
+Route::get('/deep-thoughts', [DeepThoughtController::class, 'index'])->name('deep-thoughts.index');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/deep-thoughts/create', [DeepThoughtController::class, 'create'])->name('deep-thoughts.create');
+    Route::post('/deep-thoughts', [DeepThoughtController::class, 'store'])->name('deep-thoughts.store');
+    Route::get('/deep-thoughts/{id}/edit', [DeepThoughtController::class, 'edit'])->name('deep-thoughts.edit');
+    Route::put('/deep-thoughts/{id}', [DeepThoughtController::class, 'update'])->name('deep-thoughts.update');
+    Route::delete('/deep-thoughts/{id}', [DeepThoughtController::class, 'destroy'])->name('deep-thoughts.destroy');
+});
+
