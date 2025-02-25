@@ -17,7 +17,7 @@ class DashboardController extends Controller
             'user_count' => User::count(),
             'blog_count' => Blog::count(),
             'jokes_count' => Post::count(),
-            'deep_thoghts' => DeepThought::count(),
+            'deep_thoughts' => DeepThought::count(),
             'contact_message_count' => ContactMessage::count(),
         ];
 
