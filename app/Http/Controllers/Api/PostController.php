@@ -12,9 +12,17 @@ class PostController extends Controller
     /**
      * Display a listing of the posts.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $posts = Post::all();
+        $query = Post::latest(); // Fetch latest posts first
+
+        // Apply category filter if provided
+        if ($request->has('category') && !empty($request->category)) {
+            $query->where('category', $request->category);
+        }
+
+        $posts = $query->paginate(10); // Paginate results
+
         return response()->json([
             'success' => true,
             'message' => 'Posts retrieved successfully',

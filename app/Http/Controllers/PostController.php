@@ -31,12 +31,20 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        // $posts = Post::all();
-        $posts = Post::latest()->paginate(10);
+        $query = Post::latest(); // Fetch latest posts first
+
+        // Apply category filter if present
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        $posts = $query->paginate(10); // Paginate results
+
         return view('posts.index', compact('posts'));
     }
+
 
     public function edit($id)
     {
