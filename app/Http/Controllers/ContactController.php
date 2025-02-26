@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactNotification;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -21,7 +23,9 @@ class ContactController extends Controller
             'description' => 'required|string',
         ]);
 
-        ContactMessage::create($request->all());
+        $contactMessage = ContactMessage::create($request->all());
+
+        Mail::to('prashantj4505@gmail.com')->send(new ContactNotification($contactMessage));
 
         return redirect()->route('contact.show')->with('success', 'Your message has been sent successfully!');
     }
@@ -41,13 +45,13 @@ class ContactController extends Controller
     public function destroy($id)
     {
         $message = ContactMessage::findOrFail($id);
-        
+
         // Ensure only the owner or an admin can delete
         if (Auth::check()) {
             $message->delete();
             return back()->with('success', 'Contact Us message deleted successfully.');
         }
-        
+
         return back()->with('error', 'You are not authorized to delete this contact.');
     }
 

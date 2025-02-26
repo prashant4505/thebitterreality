@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Mail\ContactNotification;
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -18,6 +20,8 @@ class ContactController extends Controller
         ]);
 
         $message = ContactMessage::create($request->all());
+
+        Mail::to('prashantj4505@gmail.com')->send(new ContactNotification($message));
 
         return response()->json([
             'message' => 'Your message has been sent successfully!',

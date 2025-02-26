@@ -16,7 +16,16 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('category', ['One-Liner Jokes', 'Dad Jokes', 'Animal Jokes']); // Dropdown field
+            $table->enum('category', [
+                'Animal Jokes',
+                'Dad Jokes',
+                'Dark Humor',
+                'One-Liner Jokes',
+                'Political Jokes',
+                'Relationship Jokes',
+                'Technology Jokes',
+                'Workplace Jokes',
+            ]); // Dropdown field
             $table->text('description');
             $table->timestamps();
         });
