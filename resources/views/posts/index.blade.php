@@ -10,7 +10,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $post->title }}</h5>
                 <p class="card-text"><strong>Category:</strong> {{ $post->category }}</p>
-                <p class="card-text">{{ $post->description }}</p>
+                <p class="card-text">{!! $post->description !!}</p>
                 <div class="d-flex">
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning btn-sm me-2">Edit</a>
                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">

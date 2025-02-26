@@ -29,3 +29,13 @@
     </form>
 </div>
 @endsection
+
+@section('scripts')
+    <!-- Load CKEditor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.9.2/ckeditor.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            CKEDITOR.replace('description');
+        });
+    </script>
+@endsection
