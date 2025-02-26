@@ -37,6 +37,6 @@
             @endforeach
         </tbody>
     </table>
-    {{ $messages->links() }}
+    {{ $messages->links('pagination::bootstrap-4') }}
 </div>
 @endsection

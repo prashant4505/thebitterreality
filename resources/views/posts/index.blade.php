@@ -22,5 +22,8 @@
             </div>
         </div>
     @endforeach
+    <nav aria-label="Page navigation example">
+        {{ $posts->links('pagination::bootstrap-4') }}  <!-- Use bootstrap-5 for Bootstrap 5 -->
+    </nav>
 </div>
 @endsection
