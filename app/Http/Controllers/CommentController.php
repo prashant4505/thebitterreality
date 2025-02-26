@@ -23,5 +23,17 @@ class CommentController extends Controller
 
         return back()->with('success', 'Your comment has been posted!');
     }
-    
+
+    public function destroy($id)
+    {
+        $comment = Comment::findOrFail($id);
+
+        // Ensure only the comment owner or an admin can delete
+        if (Auth::check() && (Auth::user()->name === $comment->name || Auth::user()->role == 'admin')) {
+            $comment->delete();
+            return back()->with('success', 'Comment deleted successfully.');
+        }
+
+        return back()->with('error', 'You are not authorized to delete this comment.');
+    }
 }
