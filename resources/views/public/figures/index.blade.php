@@ -19,14 +19,14 @@
 
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         @forelse($figures as $figure)
-        <a href="{{ $figure->routeUrl() }}" class="knowledge-card group overflow-hidden flex">
-            <div class="h-full w-28 flex-shrink-0 overflow-hidden">
-                <img src="{{ $figure->imageUrl() }}" alt="{{ $figure->name() }}" class="h-full min-h-36 w-full object-cover transition duration-500 group-hover:scale-105">
+        <a href="{{ $figure->routeUrl() }}" class="knowledge-card group overflow-hidden flex flex-col sm:flex-row">
+            <div class="h-44 w-full flex-shrink-0 overflow-hidden sm:h-auto sm:w-28">
+                <img src="{{ $figure->imageUrl() }}" alt="{{ $figure->name() }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">
             </div>
-            <div class="flex flex-col p-5">
+            <div class="flex min-w-0 flex-col p-4">
                 @if($figure->era) <p class="text-xs font-bold uppercase tracking-widest text-amber-400">{{ $figure->era }}</p> @endif
-                <h3 class="mt-1 font-bold text-white transition group-hover:text-amber-300">{{ $figure->name() }}</h3>
-                @if($figure->title()) <p class="text-xs text-slate-500">{{ $figure->title() }}</p> @endif
+                <h3 class="mt-1 truncate font-bold text-white transition group-hover:text-amber-300">{{ $figure->name() }}</h3>
+                @if($figure->title()) <p class="truncate text-xs text-slate-500">{{ $figure->title() }}</p> @endif
                 @if($figure->born || $figure->died)
                 <p class="mt-1 text-xs text-slate-600">{{ $figure->born }}{{ $figure->died ? ' – ' . $figure->died : '' }}</p>
                 @endif

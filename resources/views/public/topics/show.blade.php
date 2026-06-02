@@ -255,10 +255,10 @@
                         <div class="h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl">
                             <img src="{{ $figure->imageUrl() }}" alt="{{ $figure->name() }}" class="h-full w-full object-cover">
                         </div>
-                        <div>
-                            @if($figure->pivot->role) <p class="text-xs font-bold uppercase tracking-widest text-amber-400">{{ $figure->pivot->role }}</p> @endif
-                            <p class="font-bold text-white transition group-hover:text-amber-300">{{ $figure->name() }}</p>
-                            @if($figure->title()) <p class="text-xs text-slate-500">{{ $figure->title() }}</p> @endif
+                        <div class="min-w-0">
+                            @if($figure->pivot->role) <p class="truncate text-xs font-bold uppercase tracking-widest text-amber-400">{{ $figure->pivot->role }}</p> @endif
+                            <p class="truncate font-bold text-white transition group-hover:text-amber-300">{{ $figure->name() }}</p>
+                            @if($figure->title()) <p class="truncate text-xs text-slate-500">{{ $figure->title() }}</p> @endif
                         </div>
                     </a>
                     @endforeach

@@ -27,7 +27,7 @@
             <div>
                 @if($figure->era) <p class="kicker">{{ $figure->era }}</p> @endif
                 <h1 class="page-title mt-3">{{ $figure->name() }}</h1>
-                @if($figure->title()) <p class="mt-2 text-xl text-slate-400">{{ $figure->title() }}</p> @endif
+                @if($figure->title()) <p class="mt-2 text-base sm:text-xl text-slate-400">{{ $figure->title() }}</p> @endif
                 <div class="mt-4 flex flex-wrap gap-6 text-sm text-slate-600" style="font-family:Inter,sans-serif">
                     @if($figure->born) <span><strong class="text-slate-400">Born:</strong> {{ $figure->born }}</span> @endif
                     @if($figure->died) <span><strong class="text-slate-400">Died:</strong> {{ $figure->died }}</span> @endif
@@ -35,7 +35,7 @@
                     @if($figure->category) <span><strong class="text-slate-400">Known as:</strong> {{ $figure->category }}</span> @endif
                 </div>
                 @if($figure->shortBio())
-                <p class="mt-5 max-w-2xl text-lg leading-8 text-slate-400">{{ $figure->shortBio() }}</p>
+                <p class="mt-5 max-w-2xl text-sm sm:text-lg leading-7 sm:leading-8 text-slate-400">{{ $figure->shortBio() }}</p>
                 @endif
             </div>
         </div>
@@ -92,7 +92,7 @@
         </div>
 
         {{-- Sidebar --}}
-        <aside class="lg:block">
+        <aside class="hidden lg:block">
             <div class="sticky top-24 space-y-6" style="font-family:Inter,sans-serif">
                 <div class="rounded-2xl border border-white/8 bg-white/[.03] p-5">
                     <p class="mb-4 text-xs font-black uppercase tracking-widest text-amber-400">Quick Facts</p>
