@@ -57,9 +57,9 @@
 
     {{-- Decorative stat strip --}}
     <div class="absolute bottom-0 left-0 right-0 border-t border-white/6 bg-black/30 backdrop-blur-sm">
-        <div class="container-page flex flex-wrap divide-x divide-white/8 py-4">
+        <div class="container-page grid grid-cols-2 gap-px bg-white/8 sm:grid-cols-4">
             @foreach([['History', 'Civilizations & Empires'], ['Science', 'Discoveries & Theories'], ['Business', 'Case Studies & Failures'], ['Philosophy', 'Ideas & Religions']] as [$title, $sub])
-            <div class="flex-1 px-6 py-1 min-w-[120px]">
+            <div class="bg-[#02030a]/90 px-4 py-3 sm:px-6 sm:py-2">
                 <p class="text-xs font-black uppercase tracking-widest text-amber-400">{{ $title }}</p>
                 <p class="mt-0.5 text-xs text-slate-500">{{ $sub }}</p>
             </div>
@@ -71,7 +71,7 @@
 {{-- ═══ FEATURED TOPICS ══════════════════════════════════════════ --}}
 @if($featured->isNotEmpty())
 <section class="container-page py-16">
-    <div class="mb-8 flex items-end justify-between">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
             <p class="kicker">Editor's Selection</p>
             <h2 class="section-title mt-2">Featured Topics</h2>
@@ -112,7 +112,7 @@
 @if($figures->isNotEmpty())
 <section class="border-y border-white/6 bg-white/[.015] py-14">
     <div class="container-page">
-        <div class="mb-8 flex items-end justify-between">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-3">
             <div>
                 <p class="kicker">Profiles</p>
                 <h2 class="section-title mt-2">Famous Historical Figures</h2>
@@ -141,7 +141,7 @@
 {{-- ═══ TRENDING TOPICS ════════════════════════════════════════ --}}
 @if($trending->isNotEmpty())
 <section class="container-page py-16">
-    <div class="mb-8 flex items-end justify-between">
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-3">
         <div>
             <p class="kicker">Most Read</p>
             <h2 class="section-title mt-2">Trending Topics</h2>
@@ -159,7 +159,7 @@
 {{-- ═══ CATEGORY SECTIONS ═════════════════════════════════════ --}}
 @foreach($byCategory as $section)
 <section class="container-page py-12">
-    <div class="mb-7 flex items-end justify-between">
+    <div class="mb-7 flex flex-wrap items-end justify-between gap-3">
         <div>
             <p class="kicker">{{ $section['category']->name() }}</p>
             <h2 class="mt-1 text-2xl font-bold text-white">{{ $section['category']->description() ?? 'Deep dives & research' }}</h2>
@@ -181,7 +181,7 @@
 @if($latest->isNotEmpty())
 <section class="border-t border-white/6 bg-white/[.012] py-16">
     <div class="container-page">
-        <div class="mb-8 flex items-end justify-between">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-3">
             <div>
                 <p class="kicker">Fresh Knowledge</p>
                 <h2 class="section-title mt-2">Latest Research</h2>

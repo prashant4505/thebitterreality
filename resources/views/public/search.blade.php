@@ -7,7 +7,7 @@
         <h1 class="section-title mt-2">{{ $q ? 'Results for "' . $q . '"' : 'Search the Knowledge Library' }}</h1>
     </div>
 
-    <form action="{{ app()->getLocale() === 'hi' ? route('hi.search') : route('search') }}" class="mb-10 flex max-w-2xl gap-3">
+    <form action="{{ app()->getLocale() === 'hi' ? route('hi.search') : route('search') }}" class="mb-10 flex max-w-2xl flex-col gap-3 sm:flex-row">
         <input class="input flex-1" name="q" value="{{ $q }}" placeholder="Search topics, figures, events...">
         <button type="submit" class="btn-primary">Search</button>
     </form>

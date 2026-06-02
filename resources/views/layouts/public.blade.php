@@ -37,8 +37,8 @@
     <div class="container-page flex h-16 items-center justify-between gap-4">
 
         {{-- Logo --}}
-        <a href="{{ app()->getLocale() === 'hi' ? route('hi.home') : route('home') }}" class="flex items-center gap-2 font-bold tracking-wide text-white" style="font-family:Inter,sans-serif">
-            <span class="text-lg font-black tracking-[.15em]">THE</span><span class="text-amber-400 font-black tracking-[.15em]">BITTER</span><span class="text-slate-400 font-black tracking-[.15em]">REALITY</span>
+        <a href="{{ app()->getLocale() === 'hi' ? route('hi.home') : route('home') }}" class="flex shrink-0 items-center gap-1 sm:gap-2 font-bold text-white" style="font-family:Inter,sans-serif">
+            <span class="text-sm font-black tracking-tight sm:text-lg sm:tracking-[.15em]">THE</span><span class="text-amber-400 text-sm font-black tracking-tight sm:text-lg sm:tracking-[.15em]">BITTER</span><span class="text-slate-400 text-sm font-black tracking-tight sm:text-lg sm:tracking-[.15em]">REALITY</span>
         </a>
 
         {{-- Desktop Nav --}}
@@ -52,14 +52,14 @@
 
         {{-- Right controls --}}
         <div class="flex items-center gap-2">
-            {{-- Language Switcher --}}
+            {{-- Language Switcher (hidden on mobile — appears in mobile menu) --}}
             @php
                 $currentLocale = app()->getLocale();
                 $currentPath = request()->path();
                 $enPath = $currentLocale === 'hi' ? preg_replace('#^hi/?#', '', $currentPath) : $currentPath;
                 $hiPath = $currentLocale === 'en' ? 'hi/' . $currentPath : $currentPath;
             @endphp
-            <div class="flex items-center rounded-full border border-white/10 bg-white/5 p-0.5" style="font-family:Inter,sans-serif">
+            <div class="hidden sm:flex items-center rounded-full border border-white/10 bg-white/5 p-0.5" style="font-family:Inter,sans-serif">
                 <a href="/{{ $enPath }}" class="rounded-full px-3 py-1.5 text-xs font-bold transition {{ $currentLocale === 'en' ? 'bg-amber-400 text-black' : 'text-slate-400 hover:text-white' }}">EN</a>
                 <a href="/hi/{{ $enPath }}" class="rounded-full px-3 py-1.5 text-xs font-bold transition {{ $currentLocale === 'hi' ? 'bg-amber-400 text-black' : 'text-slate-400 hover:text-white' }}">HI</a>
             </div>
@@ -79,7 +79,7 @@
     {{-- Search bar --}}
     <div x-show="searchOpen" x-cloak x-transition class="border-t border-white/5 bg-[#02030a]/95">
         <div class="container-page py-4">
-            <form action="{{ $locale === 'hi' ? route('hi.search') : route('search') }}" class="flex gap-3">
+            <form action="{{ $locale === 'hi' ? route('hi.search') : route('search') }}" class="flex flex-col gap-3 sm:flex-row">
                 <input class="input flex-1" name="q" placeholder="Search topics, historical figures, events..." autofocus value="{{ request('q') }}">
                 <button type="submit" class="btn-primary px-5 py-3">Search</button>
             </form>
@@ -87,13 +87,20 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div x-show="menu" x-cloak class="border-t border-white/5 lg:hidden" style="font-family:Inter,sans-serif">
+    <div x-show="menu" x-cloak x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="border-t border-white/5 lg:hidden" style="font-family:Inter,sans-serif">
         <div class="container-page py-4">
             <div class="grid gap-1 rounded-2xl border border-white/8 bg-white/4 p-4">
                 <a href="{{ $locale === 'hi' ? route('hi.topics.index') : route('topics.index') }}" class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-amber-300">Topics</a>
                 <a href="{{ $locale === 'hi' ? route('hi.figures.index') : route('figures.index') }}" class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-amber-300">Historical Figures</a>
                 <a href="{{ $locale === 'hi' ? route('hi.trending') : route('trending') }}" class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-amber-300">Trending</a>
                 <a href="{{ $locale === 'hi' ? route('hi.search') : route('search') }}" class="rounded-xl px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-white/5 hover:text-amber-300">Search</a>
+                {{-- Language switcher (only visible on mobile) --}}
+                <div class="mt-2 border-t border-white/8 pt-3 sm:hidden">
+                    <div class="flex w-fit items-center rounded-full border border-white/10 bg-white/5 p-0.5">
+                        <a href="/{{ $enPath }}" class="rounded-full px-4 py-1.5 text-xs font-bold transition {{ $currentLocale === 'en' ? 'bg-amber-400 text-black' : 'text-slate-400 hover:text-white' }}">EN — English</a>
+                        <a href="/hi/{{ $enPath }}" class="rounded-full px-4 py-1.5 text-xs font-bold transition {{ $currentLocale === 'hi' ? 'bg-amber-400 text-black' : 'text-slate-400 hover:text-white' }}">HI — हिंदी</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -20,7 +20,7 @@
 
         <div class="flex flex-col gap-8 lg:flex-row lg:items-end">
             @if($figure->featured_image)
-            <div class="h-64 w-52 flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+            <div class="h-64 w-full max-w-[13rem] flex-shrink-0 overflow-hidden rounded-2xl border border-white/10 shadow-2xl sm:w-52">
                 <img src="{{ $figure->imageUrl() }}" alt="{{ $figure->name() }}" class="h-full w-full object-cover">
             </div>
             @endif
@@ -92,7 +92,7 @@
         </div>
 
         {{-- Sidebar --}}
-        <aside>
+        <aside class="lg:block">
             <div class="sticky top-24 space-y-6" style="font-family:Inter,sans-serif">
                 <div class="rounded-2xl border border-white/8 bg-white/[.03] p-5">
                     <p class="mb-4 text-xs font-black uppercase tracking-widest text-amber-400">Quick Facts</p>

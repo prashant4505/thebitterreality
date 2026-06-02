@@ -44,7 +44,7 @@
             <h1 class="page-title mt-5">{{ $topic->title() }}</h1>
 
             @if($topic->subtitle())
-            <p class="mt-4 text-2xl font-medium leading-8 text-slate-400">{{ $topic->subtitle() }}</p>
+            <p class="mt-4 text-lg sm:text-2xl font-medium leading-8 text-slate-400">{{ $topic->subtitle() }}</p>
             @endif
 
             @if($topic->excerpt())
@@ -127,6 +127,24 @@
 
         {{-- ─── Content Area ──────────────────────────────────── --}}
         <div>
+            {{-- Mobile Table of Contents --}}
+            @if($chapters->count() > 1)
+            <div class="mb-8 rounded-2xl border border-white/8 bg-white/[.03] p-5 lg:hidden" x-data="{ tocOpen: false }" style="font-family:Inter,sans-serif">
+                <button @click="tocOpen = !tocOpen" class="flex w-full items-center justify-between text-xs font-black uppercase tracking-widest text-amber-400">
+                    <span>Table of Contents</span>
+                    <svg class="h-4 w-4 transition-transform duration-200" :class="tocOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+                <nav x-show="tocOpen" x-transition class="mt-4 space-y-1">
+                    @foreach($chapters as $i => $chapter)
+                    <a href="#chapter-{{ $chapter->id }}" @click="tocOpen = false" class="toc-link flex items-start gap-2">
+                        <span class="mt-0.5 flex-shrink-0 text-xs font-black text-amber-700">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                        <span>{{ $chapter->title() }}</span>
+                    </a>
+                    @endforeach
+                </nav>
+            </div>
+            @endif
+
             {{-- Overview --}}
             @if($topic->overview())
             <div class="prose-doc mb-12">
