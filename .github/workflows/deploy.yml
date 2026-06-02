@@ -1,0 +1,63 @@
+name: Laravel Auto Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Build Frontend Assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p ${{ secrets.PORT }} ${{ secrets.HOST }} >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload Built Assets to Server
+        run: |
+          scp -P ${{ secrets.PORT }} -i ~/.ssh/deploy_key -r public/build/ \
+            ${{ secrets.USERNAME }}@${{ secrets.HOST }}:/home/u853101040/domains/thebitterreality.com/public_html/public/
+
+      - name: Deploy Laravel Project
+        run: |
+          ssh -p ${{ secrets.PORT }} -i ~/.ssh/deploy_key \
+            ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'bash -s' << 'ENDSSH'
+            cd /home/u853101040/domains/thebitterreality.com/public_html
+
+            echo "Pulling latest code..."
+            git pull origin main
+
+            echo "Installing composer dependencies..."
+            composer install --no-dev --optimize-autoloader --no-interaction
+
+            echo "Running migrations..."
+            php artisan migrate --force
+
+            echo "Clearing cache..."
+            php artisan optimize:clear
+
+            echo "Caching config/routes/views..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+
+            echo "Deployment completed successfully!"
+          ENDSSH
