@@ -3,18 +3,19 @@
 @section('content')
 
 {{-- ═══ HERO ══════════════════════════════════════════════════ --}}
-<section class="relative min-h-[90vh] overflow-hidden flex items-center">
+<section class="relative overflow-hidden flex flex-col min-h-[90vh]">
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,rgba(180,120,20,.12),transparent_60%),radial-gradient(ellipse_at_80%_30%,rgba(16,60,100,.15),transparent_50%)]"></div>
 
-    <div class="container-page relative z-10 py-20 lg:py-28">
-        <div class="max-w-4xl">
+    {{-- Hero content — flex-1 so it fills available space above the stat strip --}}
+    <div class="container-page relative z-10 flex flex-1 items-center py-16 lg:py-24">
+        <div class="max-w-4xl w-full">
             <p class="kicker">The Bitter Reality Knowledge Library</p>
             <h1 class="page-title mt-5">Learn the complete story<br><span class="text-amber-400">behind everything.</span></h1>
-            <p class="mt-6 max-w-2xl text-xl leading-8 text-slate-400">History. Science. Civilizations. Biographies. Philosophy. Every topic explained like a documentary — with context, causes, consequences, and truth.</p>
+            <p class="mt-6 max-w-2xl text-base sm:text-xl leading-8 text-slate-400">History. Science. Civilizations. Biographies. Philosophy. Every topic explained like a documentary — with context, causes, consequences, and truth.</p>
 
             {{-- Search --}}
             <form action="{{ app()->getLocale() === 'hi' ? route('hi.search') : route('search') }}"
-                  class="mt-10 flex max-w-2xl flex-col gap-3 sm:flex-row"
+                  class="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row"
                   x-data="{ suggestions: [], q: '', showSug: false }"
                   @submit.prevent="window.location = '{{ app()->getLocale() === 'hi' ? route('hi.search') : route('search') }}?q=' + encodeURIComponent(q)">
                 <div class="relative flex-1">
@@ -48,15 +49,15 @@
             </div>
             @endif
 
-            <div class="mt-8 flex flex-wrap gap-4">
+            <div class="mt-6 flex flex-wrap gap-3">
                 <a href="{{ app()->getLocale() === 'hi' ? route('hi.topics.index') : route('topics.index') }}" class="btn-primary">Explore Topics</a>
                 <a href="{{ app()->getLocale() === 'hi' ? route('hi.figures.index') : route('figures.index') }}" class="btn-ghost">Historical Figures</a>
             </div>
         </div>
     </div>
 
-    {{-- Decorative stat strip --}}
-    <div class="absolute bottom-0 left-0 right-0 border-t border-white/6 bg-black/30 backdrop-blur-sm">
+    {{-- Decorative stat strip — in normal flow so it never overlaps the content above --}}
+    <div class="relative z-10 border-t border-white/6 bg-black/30 backdrop-blur-sm">
         <div class="container-page grid grid-cols-2 gap-px bg-white/8 sm:grid-cols-4">
             @foreach([['History', 'Civilizations & Empires'], ['Science', 'Discoveries & Theories'], ['Business', 'Case Studies & Failures'], ['Philosophy', 'Ideas & Religions']] as [$title, $sub])
             <div class="bg-[#02030a]/90 px-4 py-3 sm:px-6 sm:py-2">
