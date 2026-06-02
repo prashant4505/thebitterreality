@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="The Bitter Reality">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#020617"/>
+      <stop offset=".52" stop-color="#0f172a"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fb7185" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#fb7185"/>
+      <stop offset="1" stop-color="#fb7185" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1028" cy="118" r="255" fill="#be123c" opacity=".48"/>
+  <circle cx="172" cy="526" r="285" fill="#f97316" opacity=".24"/>
+  <circle cx="600" cy="315" r="235" fill="#fb7185" opacity=".08"/>
+  <path d="M0 130 H1200 M0 500 H1200 M210 0 V630 M990 0 V630" stroke="#ffffff" stroke-opacity=".045" stroke-width="2"/>
+  <rect x="452" y="214" width="296" height="202" rx="30" fill="#020617" opacity=".54"/>
+  <text x="600" y="286" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="900" letter-spacing=".2">The Bitter</text>
+  <text x="600" y="338" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="900" letter-spacing=".2">Reality</text>
+  <rect x="498" y="366" width="204" height="2.5" rx="1.25" fill="url(#line)"/>
+  <text x="600" y="395" text-anchor="middle" fill="#fecdd3" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="800" letter-spacing="1.8">TRENDING NEWS</text>
+</svg>
