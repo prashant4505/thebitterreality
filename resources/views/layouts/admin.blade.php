@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin') — The Bitter Reality</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{-- CKEditor 4 Full — includes Source button, image upload, tables, all plugins --}}
-    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin-editor.js'])
     <style>
         /* Tab panels: English shown by default, Hindi hidden */
         .ck-tab-panel          { display: block; }
         .ck-tab-panel.hidden   { display: none; }
         /* Active tab button state */
         .ck-tab-btn.active     { background: #fbbf24; color: #000; }
-        /* CKEditor sizing */
-        .cke                   { min-height: 380px !important; }
+        /* CKEditor 5 sizing + content typography (mirrors the old contentsCss) */
+        .ck-editor__editable_inline   { min-height: 380px; }
+        .ck-content                   { font-family: Georgia, serif; font-size: 16px; line-height: 1.85; }
         /* Image preview */
         .img-preview           { max-height: 160px; object-fit: cover; border-radius: .75rem; }
     </style>
 </head>
-<body class="bg-[#02030a] text-slate-100" style="font-family:Inter,ui-sans-serif,system-ui,sans-serif">
+<body class="bg-[#02030a] text-slate-100" style="font-family:Inter,ui-sans-serif,system-ui,sans-serif" data-upload-url="{{ route('admin.upload-image') }}">
 <div class="flex min-h-screen">
 
     {{-- ─── Sidebar ──────────────────────────────────────── --}}
@@ -81,56 +81,14 @@
 </div>
 
 {{-- ═══════════════════════════════════════════════════════════════
-     CKEditor 4 + Tab system — no Alpine dependency
-     All logic is plain JS, runs on DOMContentLoaded.
+     Language tab system — no Alpine dependency, runs on DOMContentLoaded.
+     (CKEditor 5 is initialised separately by resources/js/admin-editor.js —
+     it edits an in-DOM contenteditable, not an iframe, so it doesn't need
+     a resize pass when its tab panel becomes visible.)
 ═══════════════════════════════════════════════════════════════ --}}
 <script>
 (function () {
 
-    /* ── CKEditor config ──────────────────────────────────────── */
-    var UPLOAD_URL = '{{ route('admin.upload-image') }}';
-    var CSRF_TOKEN = '{{ csrf_token() }}';
-
-    var CK_CONFIG = {
-        uploadUrl           : UPLOAD_URL,
-        filebrowserUploadUrl: UPLOAD_URL,
-        height              : 420,
-        toolbar: [
-            { name: 'document',    items: ['Source', '-', 'Preview'] },
-            { name: 'clipboard',   items: ['Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo'] },
-            { name: 'editing',     items: ['Find','Replace','-','SelectAll'] },
-            '/',
-            { name: 'basicstyles', items: ['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat'] },
-            { name: 'paragraph',   items: ['NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'] },
-            { name: 'links',       items: ['Link','Unlink','Anchor'] },
-            { name: 'insert',      items: ['Image','Table','HorizontalRule','SpecialChar'] },
-            '/',
-            { name: 'styles',      items: ['Styles','Format','Font','FontSize'] },
-            { name: 'colors',      items: ['TextColor','BGColor'] },
-            { name: 'tools',       items: ['Maximize'] },
-        ],
-        extraPlugins : 'uploadimage',
-        contentsCss  : ['body{font-family:Georgia,serif;font-size:16px;line-height:1.85;padding:12px}'],
-    };
-
-    // CSRF header for inline image drag-drop uploads
-    CKEDITOR.on('fileUploadRequest', function (evt) {
-        evt.data.fileLoader.xhr.setRequestHeader('X-CSRF-TOKEN', CSRF_TOKEN);
-    });
-
-    function replaceSingle(el) {
-        if (!el.id) { el.id = 'ck_' + Math.random().toString(36).substr(2, 9); }
-        if (CKEDITOR.instances[el.id]) { CKEDITOR.instances[el.id].destroy(true); }
-        CKEDITOR.replace(el.id, CK_CONFIG);
-    }
-
-    function resizeAll() {
-        for (var id in CKEDITOR.instances) {
-            try { CKEDITOR.instances[id].resize('100%', 420); } catch(e) {}
-        }
-    }
-
-    /* ── Language tab system (pure JS — no Alpine) ─────────────── */
     function initTabs() {
         document.querySelectorAll('.ck-tab-bar').forEach(function (bar) {
             bar.querySelectorAll('.ck-tab-btn').forEach(function (btn) {
@@ -148,22 +106,12 @@
                     form.querySelectorAll('.ck-tab-panel').forEach(function (panel) {
                         panel.classList.toggle('hidden', panel.dataset.lang !== targetLang);
                     });
-
-                    // Give CKEditor time to measure the now-visible panels
-                    setTimeout(resizeAll, 80);
                 });
             });
         });
     }
 
-    /* ── Initialise everything on DOMContentLoaded ─────────────── */
-    document.addEventListener('DOMContentLoaded', function () {
-        // 1. Wire up language tabs
-        initTabs();
-
-        // 2. Replace every .use-ckeditor textarea with a CKEditor instance
-        document.querySelectorAll('textarea.use-ckeditor').forEach(replaceSingle);
-    });
+    document.addEventListener('DOMContentLoaded', initTabs);
 
     /* ── Image file-input live preview ─────────────────────────── */
     window.previewImage = function (input, previewId) {
