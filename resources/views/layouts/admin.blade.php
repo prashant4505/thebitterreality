@@ -109,7 +109,7 @@
             { name: 'colors',      items: ['TextColor','BGColor'] },
             { name: 'tools',       items: ['Maximize'] },
         ],
-        extraPlugins : 'uploadimage,image2',
+        extraPlugins : 'uploadimage',
         contentsCss  : ['body{font-family:Georgia,serif;font-size:16px;line-height:1.85;padding:12px}'],
     };
 
