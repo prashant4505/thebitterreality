@@ -83,4 +83,3 @@ foreach (['hi' => '/hi', 'en' => ''] as $locale => $prefix) {
                 ->name("{$p}bookmark.toggle")->middleware('throttle:20,1');
         });
 }
-
